@@ -1,0 +1,23 @@
+{
+    "name": "browser-extension",
+    "version": "1.0.0",
+    "description": "A template for browser extension applications.",
+    "main": "background.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ZachWatkins/browser-extension.git"
+    },
+    "author": "Zachary K. Watkins",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ZachWatkins/browser-extension/issues"
+    },
+    "homepage": "https://github.com/ZachWatkins/browser-extension#readme",
+    "devDependencies": {
+        "canvas": "^2.11.2"
+    }
+}

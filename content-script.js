@@ -1,6 +1,9 @@
 chrome.runtime.onMessage.addListener(function (message) {
-    switch (message) {
-        case 'on':
+    if (message.type !== 'setExtensionStatus') {
+        return;
+    }
+    switch (message.status) {
+        case true:
             activate();
             break;
         default:

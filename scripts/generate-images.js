@@ -35,3 +35,27 @@ sizes.forEach((size) => {
 
     console.log(`Generated icon-${size}${altSuffix}.png`);
 });
+
+// Example logo.
+const logoSize = 32;
+const logoCanvas = createCanvas(logoSize, logoSize);
+const logoCtx = logoCanvas.getContext('2d');
+
+logoCtx.translate(logoSize / 2, logoSize / 2);
+logoCtx.translate(-logoSize / 2, -logoSize / 2);
+
+logoCtx.fillStyle = '#FFFF00';
+logoCtx.fillRect(0, 0, logoSize, logoSize);
+
+logoCtx.fillStyle = '#000000';
+logoCtx.font = 'bold 14px serif';
+logoCtx.textAlign = 'center';
+logoCtx.textBaseline = 'middle';
+logoCtx.fillText(`LO`, logoSize / 2, logoSize / 3.3);
+logoCtx.fillText(`GO`, logoSize / 2, (logoSize / 2.8) * 2);
+
+const logoBuffer = logoCanvas.toBuffer('image/png');
+
+fs.writeFileSync('logo.png', logoBuffer);
+
+console.log('Generated logo.png');

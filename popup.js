@@ -1,23 +1,7 @@
-const init = async function () {
+async function init() {
     const toggleBtnOn = document.querySelector('#btn_on');
     const toggleBtnOff = document.querySelector('#btn_off');
     toggleBtnOff.classList.add('on');
-
-    toggleBtnOn.addEventListener('mousedown', (e) => {
-        toggleBtnOn.classList.add('active');
-    });
-
-    toggleBtnOn.addEventListener('mouseup', (e) => {
-        toggleBtnOn.classList.remove('active');
-    });
-
-    toggleBtnOff.addEventListener('mousedown', (e) => {
-        toggleBtnOff.classList.add('active');
-    });
-
-    toggleBtnOff.addEventListener('mouseup', (e) => {
-        toggleBtnOff.classList.remove('active');
-    });
 
     toggleBtnOn.addEventListener('click', async (e) => {
         e.preventDefault();
@@ -63,6 +47,22 @@ const init = async function () {
             });
     });
 
+    toggleBtnOn.addEventListener('mousedown', (e) => {
+        toggleBtnOn.classList.add('active');
+    });
+
+    toggleBtnOn.addEventListener('mouseup', (e) => {
+        toggleBtnOn.classList.remove('active');
+    });
+
+    toggleBtnOff.addEventListener('mousedown', (e) => {
+        toggleBtnOff.classList.add('active');
+    });
+
+    toggleBtnOff.addEventListener('mouseup', (e) => {
+        toggleBtnOff.classList.remove('active');
+    });
+
     const [tab] = await chrome.tabs.query({
         active: true,
         lastFocusedWindow: true,
@@ -86,6 +86,6 @@ const init = async function () {
             toggleBtnOff.classList.add('on');
         }
     });
-};
+}
 
 document.addEventListener('DOMContentLoaded', init);

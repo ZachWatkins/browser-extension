@@ -1,14 +1,13 @@
 chrome.runtime.onMessage.addListener(function (message) {
-    if (message.type !== 'setExtensionStatus') {
-        return;
-    }
-    switch (message.status) {
-        case true:
+    if (
+        message.type === 'setExtensionStatus' &&
+        message.host === window.location.host
+    ) {
+        if (message.status === true) {
             activate();
-            break;
-        default:
+        } else if (message.status === false) {
             deactivate();
-            break;
+        }
     }
 });
 

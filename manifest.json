@@ -1,12 +1,12 @@
 {
     "name": "Extension",
-    "version": "1.0.0",
-    "manifest_version": 3,
+    "version": "1.0",
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsYMldFKkZ6pedx0vlRN9trccJkIv8C8Lnz+Z4dtewnYaVf9/H+tJqV2cEpyg7+RfIjqUbC4Xn4/3YAmP1lRQ6dm212GmSdx0O2+vRqla3pb4zgTmq3Ff8yhi3u5qIuDmCPJEok/8I7+9zdnWexVXEaqgDZWVD9CSpMc9Vtbc13VO5yT05NM+T8Py/2zZDgnlcEIFfdXZeFvouKmX4EzNmI+/NUOZQr0UFye12iYR0uy2MrPcj0i5wFMft5fKfRTYfLbagG9GdtMz/pm+kO5hhcPy7WHpCbrobux/QhDkFGB6HAvIYc+9CK+M+DzXgtmn1LtnWkdX2YzNq31seWBpiQIDAQAB",
     "description": "Utilizes primary external interfaces of browser extensions to provide functionality to users.",
+    "permissions": ["activeTab", "scripting", "storage"],
     "background": {
         "service_worker": "background.js"
     },
-    "permissions": ["activeTab", "scripting", "storage"],
     "content_scripts": [
         {
             "js": ["content-script.js"],
@@ -22,5 +22,6 @@
             "48": "icon-48.png",
             "128": "icon-128.png"
         }
-    }
+    },
+    "manifest_version": 3
 }

@@ -4,8 +4,12 @@
     "description": "A template for browser extension applications.",
     "main": "background.js",
     "type": "module",
+    "dependencies": {
+        "jest": "^29.7.0",
+        "puppeteer": "^21.3.6"
+    },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "jest ."
     },
     "repository": {
         "type": "git",
@@ -18,6 +22,7 @@
     },
     "homepage": "https://github.com/ZachWatkins/browser-extension#readme",
     "devDependencies": {
-        "canvas": "^2.11.2"
+        "canvas": "^2.11.2",
+        "@jest/globals": "^29.7.0"
     }
 }

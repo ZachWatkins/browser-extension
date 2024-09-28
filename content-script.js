@@ -1,11 +1,13 @@
-chrome.runtime.onMessage.addListener(function (message) {
+console.log('Content script loaded');
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    console.log('Received message', request);
     if (
-        message.type === 'setExtensionStatus' &&
-        message.host === window.location.host
+        request.type === 'setExtensionStatus' &&
+        request.host === window.location.host
     ) {
-        if (message.status === true) {
+        if (request.status === true) {
             activate();
-        } else if (message.status === false) {
+        } else if (request.status === false) {
             deactivate();
         }
     }
@@ -16,6 +18,7 @@ chrome.runtime.onMessage.addListener(function (message) {
  * @returns {void}
  */
 function activate() {
+    console.log('Activating extension');
     document.body.addEventListener('mousemove', logMouseMove);
 }
 
@@ -24,6 +27,7 @@ function activate() {
  * @returns {void}
  */
 function deactivate() {
+    console.log('Deactivating extension');
     document.body.removeEventListener('mousemove', logMouseMove);
 }
 
@@ -33,9 +37,13 @@ function deactivate() {
  * @returns {void}
  */
 function logMouseMove(e) {
-    chrome.runtime.sendMessage({
-        type: 'log',
-        name: 'mousemove',
-        options: { x: e.clientX, y: e.clientY },
-    });
+    (async () => {
+        const response = await chrome.runtime.sendMessage({
+            type: 'log',
+            name: 'mousemove',
+            options: { x: e.clientX, y: e.clientY },
+        });
+        // do something with response here, not outside the function
+        console.log(response);
+    })();
 }

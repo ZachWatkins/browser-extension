@@ -10,19 +10,19 @@ async function init() {
             lastFocusedWindow: true,
         });
         if (!tab || !tab.url) {
+            console.log('No tab or URL found');
             return;
         }
         const host = new URL(tab.url).host;
-        chrome.runtime
-            .sendMessage({
-                type: 'setExtensionStatus',
-                host,
-                status: true,
-            })
-            .then(() => {
-                toggleBtnOn.classList.add('on');
-                toggleBtnOff.classList.remove('on');
-            });
+        const message = {
+            type: 'setExtensionStatus',
+            host,
+            status: true,
+        };
+        await chrome.tabs.sendMessage(tab.id, message);
+        await chrome.runtime.sendMessage(message);
+        toggleBtnOn.classList.add('on');
+        toggleBtnOff.classList.remove('on');
     });
 
     toggleBtnOff.addEventListener('click', async (e) => {
@@ -35,16 +35,15 @@ async function init() {
             return;
         }
         const host = new URL(tab.url).host;
-        chrome.runtime
-            .sendMessage({
-                type: 'setExtensionStatus',
-                host,
-                status: false,
-            })
-            .then(() => {
-                toggleBtnOn.classList.remove('on');
-                toggleBtnOff.classList.add('on');
-            });
+        const message = {
+            type: 'setExtensionStatus',
+            host,
+            status: false,
+        };
+        await chrome.tabs.sendMessage(tab.id, message);
+        await chrome.runtime.sendMessage(message);
+        toggleBtnOn.classList.remove('on');
+        toggleBtnOff.classList.add('on');
     });
 
     toggleBtnOn.addEventListener('mousedown', (e) => {
@@ -72,20 +71,27 @@ async function init() {
         return;
     }
 
-    const message = {
+    const host = new URL(tab.url).host;
+    let message = {
         type: 'getExtensionStatus',
-        host: new URL(tab.url).host,
+        host,
     };
 
-    chrome.runtime.sendMessage(message).then((response) => {
-        if (response.status) {
-            toggleBtnOn.classList.add('on');
-            toggleBtnOff.classList.remove('on');
-        } else {
-            toggleBtnOn.classList.remove('on');
-            toggleBtnOff.classList.add('on');
-        }
-    });
+    const response = await chrome.runtime.sendMessage(message);
+    message = {
+        type: 'setExtensionStatus',
+        host,
+        status: response.status,
+    };
+    if (response.status) {
+        toggleBtnOn.classList.add('on');
+        toggleBtnOff.classList.remove('on');
+    } else {
+        toggleBtnOn.classList.remove('on');
+        toggleBtnOff.classList.add('on');
+    }
+    await chrome.tabs.sendMessage(tab.id, message);
+    await chrome.runtime.sendMessage(message);
 }
 
 document.addEventListener('DOMContentLoaded', init);

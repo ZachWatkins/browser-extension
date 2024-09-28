@@ -28,6 +28,7 @@ chrome.tabs.onActivated.addListener((info) => {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    console.log('Received message', request);
     if (request.type === 'getExtensionStatus') {
         getExtensionStatus(request.host).then((status) => {
             sendResponse({ status });
@@ -48,6 +49,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
  * @returns {void}
  */
 async function init(tab) {
+    console.log('Initializing extension');
     if (!tab.url) {
         chrome.action.setIcon({ path: icons.disabled });
         return;
@@ -87,6 +89,7 @@ function getExtensionStatus(host) {
  * @returns {void}
  */
 function setExtensionStatus(host, toggleBtnStatus) {
+    console.log('Setting extension status', host, toggleBtnStatus);
     const data = { [host]: toggleBtnStatus };
     chrome.storage.sync.set(data, () => {});
 }

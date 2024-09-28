@@ -2,7 +2,7 @@
     "name": "browser-extension",
     "version": "1.0.0",
     "description": "A template for browser extension applications.",
-    "main": "background.js",
+    "main": "service-worker.js",
     "type": "module",
     "dependencies": {
         "jest": "^29.7.0",

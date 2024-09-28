@@ -9,7 +9,7 @@ async function init() {
             active: true,
             lastFocusedWindow: true,
         });
-        if (!tab.url) {
+        if (!tab || !tab.url) {
             return;
         }
         const host = new URL(tab.url).host;
